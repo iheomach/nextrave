@@ -1,0 +1,17 @@
+# Node
+node_modules/
+dist/
+.env
+
+# Logs
+logs/
+*.log
+
+# MacOS
+.DS_Store
+
+# VSCode
+.vscode/
+
+# ts-node dev cache
+*.tsbuildinfo

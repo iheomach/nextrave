@@ -9,7 +9,10 @@
     "skipLibCheck": true,
     "baseUrl": "src",
     "paths": {
-      "@mongodb": ["infrastructure/mongodb/index.ts"]
+      "@config": ["config.ts"],
+      "@mongodb": ["infrastructure/mongodb/index.ts"],
+      "@auth": ["modules/auth/index.ts"],
+      "@user": ["modules/user/index.ts"]
     }
   }
 }

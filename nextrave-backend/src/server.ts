@@ -1,7 +1,14 @@
 import app from "./app";
+import config from "./config";
+import { connectToMongoDB } from "@mongodb";
 
-const PORT = 3000;
+connectToMongoDB({
+  host: config.DB_HOST,
+  user: config.DB_USER,
+  pass: config.DB_PASS,
+  connector: config.DB_CONNECTOR,
+});
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+app.listen(config.PORT, () => {
+  console.log(`Server running on port ${config.PORT}`);
 });

@@ -1,33 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  TextInput,
-  ScrollView,
-  Image,
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  Animated,
-  Alert,
-  Dimensions,
-} from 'react-native';
+import React from 'react';
+import {View,Text,TouchableOpacity,ScrollView,StyleSheet} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import MaskedView from '@react-native-masked-view/masked-view';
-import { BlurView } from 'expo-blur';
 import Icon from 'react-native-vector-icons/Feather';
-type GradientButtonProps = {
-  onPress: () => void;
-  children: React.ReactNode;
-  style?: object;
-};
-
-const GradientButton: React.FC<GradientButtonProps> = ({ onPress, children, style }) => (
-  <TouchableOpacity onPress={onPress} style={style}>
-    {children}
-  </TouchableOpacity>
-);
 
 type HomeScreenProps = {
   onNavigate: (route: string) => void;
@@ -55,7 +30,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ onNavigate }) => (
             colors={['#A855F7', '#EC4899', '#EF4444']}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
-            style={{ height: 44 }} // should match or exceed your text height
+            style={{ height: 44 }}
         />
     </MaskedView>
 
@@ -118,23 +93,8 @@ const styles = StyleSheet.create({
     titleGradient: { padding: 8, borderRadius: 12 },
     appSubtitle: { color: '#C4B5FD', fontSize: 16, marginTop: 8, textAlign: 'center' },
     buttonGroup: { marginBottom: 32 },
-    primaryButton: {
-    marginBottom: 12,
-    borderRadius: 24,
-    overflow: 'hidden',
-    elevation: 8,
-    shadowColor: '#8B5CF6',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    },
-    primaryButtonText: {
-    color: 'white',
-    fontWeight: '700',
-    fontSize: 18,
-    textAlign: 'center',
-    letterSpacing: 0.5,
-    },
+    primaryButton: {marginBottom: 12, borderRadius: 24, overflow: 'hidden',elevation: 8,shadowColor: '#8B5CF6', shadowOffset: { width: 0, height: 4 },shadowOpacity: 0.3,shadowRadius: 8,},
+    primaryButtonText: { color: 'white',fontWeight: '700',fontSize: 18,textAlign: 'center',letterSpacing: 0.5,},
     secondaryButton: { backgroundColor: '#27272A', borderRadius: 16, padding: 16 },
     secondaryButtonText: { color: 'white', fontWeight: 'bold', fontSize: 18, textAlign: 'center' },
     howItWorksContainer: { backgroundColor: '#27272A', borderRadius: 20, padding: 24 },

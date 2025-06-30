@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import NextRaveApp from '../pages/NextRaveApp';
 
 const Home = () => {
   return (
@@ -9,6 +10,6 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default NextRaveApp;
 
 const styles = StyleSheet.create({});

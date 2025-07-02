@@ -1,9 +1,7 @@
 import { User, UserDocument, UserSchema } from "./model";
 
-export async function findBySpotifyId(
-  spotifyId: string
-): Promise<UserDocument | null> {
-  return User.findOne({ spotifyId });
+export async function findById(userId: string): Promise<UserDocument | null> {
+  return User.findById(userId);
 }
 
 export async function createUser(
@@ -12,9 +10,9 @@ export async function createUser(
   return User.create(data);
 }
 
-export async function updateUserBySpotifyId(
-  spotifyId: string,
+export async function updateUser(
+  userId: string,
   data: Partial<UserSchema>
 ): Promise<UserDocument | null> {
-  return User.findOneAndUpdate({ spotifyId }, data, { new: true });
+  return User.findByIdAndUpdate(userId, data, { new: true });
 }

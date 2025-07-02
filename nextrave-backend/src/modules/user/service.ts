@@ -1,37 +1,23 @@
-import { SpotifyProfile, SpotifyTokens, UserDTO } from "modules/types";
+import { SpotifyProfile, SpotifyTokens, UserDTO } from "@types";
 import * as userRepository from "./repository";
 import { UserDocument } from "./model";
 
 export async function syncSpotifyUser(
+  userId: string,
   profile: SpotifyProfile,
   tokens: SpotifyTokens
 ): Promise<UserDTO> {
   const tokenExpiresAt = new Date(Date.now() + tokens.expires_in * 1000);
-  const profileImage = profile.images?.[0]?.url || getDefaultAvatarUrl();
-  const displayName = profile.display_name || getDefaultDisplayName();
 
-  const existing = await userRepository.findBySpotifyId(profile.id);
+  const user = await userRepository.findById(userId);
+  if (!user) throw new Error("User not found");
 
-  const user = existing
-    ? await userRepository.updateUserBySpotifyId(profile.id, {
-        displayName,
-        email: profile.email,
-        profileImage,
-        spotifyAccessToken: tokens.access_token,
-        spotifyRefreshToken: tokens.refresh_token,
-        tokenExpiresAt,
-      })
-    : await userRepository.createUser({
-        spotifyId: profile.id,
-        displayName,
-        email: profile.email,
-        profileImage,
-        spotifyAccessToken: tokens.access_token,
-        spotifyRefreshToken: tokens.refresh_token,
-        tokenExpiresAt,
-      });
+  user.spotifyId = profile.id;
+  user.spotifyAccessToken = tokens.access_token;
+  user.spotifyRefreshToken = tokens.refresh_token;
+  user.tokenExpiresAt = tokenExpiresAt;
 
-  if (!user) throw new Error("Failed to save or update Spotify user");
+  const updatedUser = await userRepository.updateUser(userId, user);
 
   return toUserDTO(user);
 }

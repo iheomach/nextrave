@@ -3,7 +3,7 @@ import * as authController from "./controller";
 
 const router = Router();
 
-router.get("/login", authController.spotifyLogin);
-router.get("/callback", authController.spotifyCallback);
+router.post("/login", authController.handleLogin);
+router.post("/signup", authController.handleSignup);
 
 export default router;

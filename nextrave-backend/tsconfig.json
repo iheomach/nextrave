@@ -11,6 +11,7 @@
     "paths": {
       "@app": ["app/index.ts"],
       "@config": ["config.ts"],
+      "@errors": ["errors.ts"],
       "@types": ["types.ts"],
       "@mongodb": ["infrastructure/mongodb/index.ts"],
       "@auth": ["modules/auth/index.ts"],

@@ -1,9 +1,43 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
+import { UserDTO } from "@types";
 
-export function handleLogin(req: Request, res: Response) {
-  console.log("called login handler");
+import * as authService from "./service";
+
+interface SignupBody {
+  email: string;
+  username: string;
+  password: string;
 }
 
-export function handleSignup(req: Request, res: Response) {
-  console.log("called signup handler");
+interface LoginBody {
+  email: string;
+  password: string;
+}
+
+export async function handleSignup(
+  req: Request<{}, {}, SignupBody>,
+  res: Response<UserDTO | { error: string }>,
+  next: NextFunction
+) {
+  try {
+    const { email, username, password } = req.body;
+    const user = await authService.signupUser(email, username, password);
+    res.status(201).json(user);
+  } catch (err: any) {
+    next(err);
+  }
+}
+
+export async function handleLogin(
+  req: Request<{}, {}, LoginBody>,
+  res: Response<UserDTO | { error: string }>,
+  next: NextFunction
+) {
+  try {
+    const { email, password } = req.body;
+    const user = await authService.loginUser(email, password);
+    res.status(200).json(user);
+  } catch (err: any) {
+    next(err);
+  }
 }

@@ -16,3 +16,23 @@ export async function updateUser(
 ): Promise<UserDocument | null> {
   return User.findByIdAndUpdate(userId, data, { new: true });
 }
+
+export async function findByEmailOrUsername(
+  email: string,
+  username: string
+): Promise<UserDocument | null> {
+  return User.findOne({
+    $or: [{ email }, { username }],
+  });
+}
+
+export async function findByEmail(
+  email: string,
+  includePassword = false
+): Promise<UserDocument | null> {
+  if (includePassword) {
+    return User.findOne({ email }).select("+password");
+  } else {
+    return User.findOne({ email });
+  }
+}

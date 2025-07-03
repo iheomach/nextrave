@@ -24,8 +24,8 @@ export interface TokenPayload {
 export interface UserDTO {
   id: string;
   displayName: string;
-  email?: string;
+  email: string;
   profileImage: string;
-  spotifyId: string;
+  spotifyId?: string;
   authToken?: string;
 }

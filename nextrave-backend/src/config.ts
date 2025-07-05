@@ -25,6 +25,7 @@ const config = cleanEnv(process.env, {
 
   // Auth
   JWT_SECRET: str(),
+  JWT_EXPIRES_IN: num(),
 });
 
 export default config;

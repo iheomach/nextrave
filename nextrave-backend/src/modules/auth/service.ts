@@ -7,8 +7,6 @@ import { AuthenticationError, NotFoundError } from "@errors";
 
 import { userService } from "@user";
 
-const JWT_EXPIRES_IN = 60 * 60 * 24 * 7; // 7 days
-
 export async function signupUser(
   email: string,
   username: string,
@@ -41,10 +39,17 @@ export async function loginUser(
   return user;
 }
 
-function signToken(userId: string): string {
-  return jwt.sign({ userId }, config.JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+export function verifyAuthToken(token: string): TokenPayload {
+  try {
+    const payload = jwt.verify(token, config.JWT_SECRET) as TokenPayload;
+    return payload;
+  } catch (err) {
+    throw new AuthenticationError("Invalid or expired token");
+  }
 }
 
-export function verifyAuthToken(token: string): TokenPayload {
-  return { userId: "" };
+function signToken(userId: string): string {
+  return jwt.sign({ userId }, config.JWT_SECRET, {
+    expiresIn: config.JWT_EXPIRES_IN,
+  });
 }

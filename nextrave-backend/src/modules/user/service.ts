@@ -1,7 +1,7 @@
 import { SpotifyProfile, SpotifyTokens, UserDTO } from "@types";
 import * as userRepository from "./repository";
 import { UserDocument } from "./model";
-import { ValidationError, AuthenticationError, NotFoundError } from "@errors";
+import { ValidationError, NotFoundError } from "@errors";
 
 export async function registerUser(
   email: string,

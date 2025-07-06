@@ -2,8 +2,9 @@ import axios from "axios";
 import querystring from "querystring";
 import jwt from "jsonwebtoken";
 
-import config from "@config";
-import { SpotifyProfile, SpotifyTokens } from "@types";
+import config from "shared/config";
+import { SpotifyProfile, SpotifyTokens } from "shared/types";
+
 import { userService } from "@user";
 
 // Spotify OAuth scopes — permissions needed from the user

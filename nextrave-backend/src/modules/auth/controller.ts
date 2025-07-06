@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { UserDTO } from "@types";
+import { UserDTO } from "shared/types";
 
 import * as authService from "./service";
 

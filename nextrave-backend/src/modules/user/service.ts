@@ -1,7 +1,10 @@
-import { SpotifyProfile, SpotifyTokens, UserDTO } from "@types";
+import { ClientSession, Types } from "mongoose";
+
+import { SpotifyProfile, SpotifyTokens, UserDTO, RoomRole } from "shared/types";
+import { ValidationError, NotFoundError } from "shared/errors";
+
 import * as userRepository from "./repository";
 import { UserDocument } from "./model";
-import { ValidationError, NotFoundError } from "@errors";
 
 export async function registerUser(
   email: string,
@@ -25,14 +28,41 @@ export async function registerUser(
   return toUserDTO(user);
 }
 
-export async function getUserWithPassword(
-  email: string
+export async function getUser(
+  email: string,
+  includePassword = false,
+  session?: ClientSession
 ): Promise<UserDTO & { password: string }> {
-  const user = await userRepository.findByEmail(email, true);
+  const user = await userRepository.findByEmail(
+    email,
+    includePassword,
+    session
+  );
   if (!user) throw new NotFoundError("User not found");
 
   const dto = toUserDTO(user);
   return { ...dto, password: user.password! };
+}
+
+export async function updateUserCurrentRoom(
+  userId: string,
+  roomId: string,
+  roomRole = RoomRole.Participant,
+  session?: ClientSession
+): Promise<UserDTO> {
+  const currentRoom = {
+    roomId: new Types.ObjectId(roomId),
+    role: roomRole,
+  };
+
+  const updatedUser = await userRepository.updateUser(
+    userId,
+    { currentRoom },
+    session
+  );
+  if (!updatedUser) throw new NotFoundError("User not found");
+
+  return toUserDTO(updatedUser);
 }
 
 export async function syncSpotifyUser(
@@ -54,6 +84,10 @@ export async function syncSpotifyUser(
   if (!updatedUser) throw new Error("Failed to update user");
 
   return toUserDTO(updatedUser);
+}
+
+export async function clearUserRoom(userId: string) {
+  return userRepository.updateUser(userId, { currentRoom: null });
 }
 
 function toUserDTO(user: UserDocument): UserDTO {

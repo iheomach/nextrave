@@ -28,4 +28,13 @@ export interface UserDTO {
   profileImage: string;
   spotifyId?: string;
   authToken?: string;
+  currentRoom?: {
+    roomId: string;
+    role: string;
+  } | null;
+}
+
+export enum RoomRole {
+  Host = "host",
+  Participant = "participant",
 }

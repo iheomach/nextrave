@@ -1,9 +1,10 @@
 import { Router } from "express";
 
-import config from "@config";
+import config from "shared/config";
 import { authenticateJWT, errorHandler } from "./middlewares";
 
 import { authRouter } from "@auth";
+import { roomRouter } from "modules/room";
 import { integrationsRouter } from "@integrations";
 
 const router = Router();

@@ -1,8 +1,12 @@
 import { Request, Response, NextFunction } from "express";
 
 import { authService } from "@auth";
-import { AuthenticatedRequest } from "@types";
-import { AuthenticationError, NotFoundError, ValidationError } from "@errors";
+import { AuthenticatedRequest } from "shared/types";
+import {
+  AuthenticationError,
+  NotFoundError,
+  ValidationError,
+} from "shared/errors";
 
 export function authenticateJWT(
   req: Request,

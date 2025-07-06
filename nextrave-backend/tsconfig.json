@@ -10,12 +10,10 @@
     "baseUrl": "src",
     "paths": {
       "@app": ["app/index.ts"],
-      "@config": ["config.ts"],
-      "@errors": ["errors.ts"],
-      "@types": ["types.ts"],
       "@mongodb": ["infrastructure/mongodb/index.ts"],
       "@auth": ["modules/auth/index.ts"],
       "@integrations": ["modules/integrations/index.ts"],
+      "@room": ["modules/room/index.ts"],
       "@user": ["modules/user/index.ts"]
     }
   }

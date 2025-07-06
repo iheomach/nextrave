@@ -1,5 +1,5 @@
 import app from "@app";
-import config from "@config";
+import config from "shared/config";
 import { connectToMongoDB } from "@mongodb";
 
 connectToMongoDB({

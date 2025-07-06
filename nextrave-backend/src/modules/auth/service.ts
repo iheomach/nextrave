@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
-import config from "@config";
-import { TokenPayload, UserDTO } from "@types";
-import { AuthenticationError, NotFoundError } from "@errors";
+import config from "shared/config";
+import { TokenPayload, UserDTO } from "shared/types";
+import { AuthenticationError, NotFoundError } from "shared/errors";
 
 import { userService } from "@user";
 
@@ -24,7 +24,7 @@ export async function loginUser(
 ): Promise<UserDTO> {
   let user;
   try {
-    user = await userService.getUserWithPassword(email);
+    user = await userService.getUser(email, true);
   } catch (err) {
     if (err instanceof NotFoundError) {
       throw new AuthenticationError("Invalid credentials");
